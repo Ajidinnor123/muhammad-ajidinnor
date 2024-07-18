@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Toko SHOPEPAPA</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f8f8;
+        }
+
+        .header {
+            background-color: #ee4d2d;
+            color: white;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            font-size: 32px;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .content {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: calc(100vh - 90px); /* 90px adalah tinggi header */
+        }
+
+        .login-container {
+            width: 300px;
+            padding: 20px;
+            background-color: #fff;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .login-form {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .login-form h2 {
+            text-align: center;
+            margin-bottom: 10px;
+        }
+
+        .login-form label {
+            margin-bottom: 5px;
+        }
+
+        .login-form input {
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            font-size: 14px;
+        }
+
+        .login-form button {
+            padding: 8px;
+            background-color: #ee4d2d;
+            color: white;
+            border: none;
+            border-radius: 3px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .login-form button:hover {
+            background-color: #e60d05;
+        }
+
+        .login-form p {
+            margin-top: 10px;
+            text-align: center;
+        }
+
+        .login-form a {
+            color: #ee4d2d;
+            text-decoration: none;
+        }
+
+        .login-form a:hover {
+            text-decoration: underline;
+        }
+
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 10px 0;
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="logo">Toko SHOPEPAPA</div>
+    </header>
+
+    <main class="content">
+        <div class="login-container">
+            <form class="login-form" onsubmit="event.preventDefault(); login();">
+                <h2>Login</h2>
+                <label for="username">Username:</label>
+                <input type="text" id="username" name="username" required>
+                <label for="password">Password:</label>
+                <input type="password" id="password" name="password" required>
+                <button type="submit">Login</button>
+                <p>Belum punya akun? <a href="#">Daftar di sini</a></p>
+            </form>
+        </div>
+    </main>
+
+    <footer>
+        &copy; 2024 Toko SHOPEPAPA. All rights reserved.
+    </footer>
+
+    <script>
+        function login() {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            // Contoh sederhana validasi login
+            if (username === 'Ajidinnor' && password === '12345') {
+                alert('Login berhasil!');
+                // Redirect ke halaman setelah login
+                window.location.href = 'tampilan shope.html';
+            } else {
+                alert('Login gagal. Periksa kembali username dan password Anda.');
+            }
+        }
+    </script>
+</body>
+</html>
