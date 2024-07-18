@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Toko SHOPEPAPA</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f8f8;
+        }
+        .header {
+            background-color: #ee4d2d;
+            color: white;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .logo {
+            font-size: 30px;
+            font-weight: bold;
+        }
+        .pencarian {
+            flex-grow: 1;
+            margin: 0 20px;
+            display: flex;
+        }
+        .pencarian input {
+            width: 100%;
+            padding: 5px;
+            border: none;
+            border-radius: 3px 0 0 3px;
+        }
+        .pencarian button {
+            padding: 5px 50px;
+            background-color: #e60d05;
+            border: none;
+            color: white;
+            border-radius: 0 6px 6px 0;
+            cursor: pointer;
+        }
+        .navigasi {
+            display: flex;
+        }
+        .navigasi a {
+            color: rgb(255, 255, 255);
+            text-decoration: none;
+            padding: 0 10px;
+            font-weight: bold;
+        }
+        .banner {
+            display: flex;
+            justify-content: space-between;
+            margin: 20px;
+        }
+        .banner-utama, .banner-samping {
+            background-color: #f59609;
+            padding: 40px;
+            border-radius: 5px;
+        }
+        .banner-samping {
+            width: 50%;
+        }
+        .kategori-ikon {
+            display: flex;
+            justify-content: space-around;
+            margin: 20px;
+        }
+        .kategori-item {
+            text-align: center;
+        }
+        .kategori-item img {
+            max-width: 100px;
+            height: auto;
+        }
+        .kategori-item p, .kategori-item a {
+            margin: 10px 0 0 0;
+            color: black;
+            text-decoration: none;
+        }
+        .hasil-pencarian {
+            margin: 20px;
+        }
+        footer {
+            background-color: #f03716;
+            color: white;
+            text-align: center;
+            padding: 100px 0;
+        }
+        .keranjang {
+            position: fixed;
+            bottom: 40px;
+            right: 60px;
+            background-color: rgb(229, 245, 10);
+            border: 1px solid #ccc;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <div class="logo">Toko Online</div>
+        <div class="pencarian">
+            <input type="text" id="searchInput" placeholder="Cari produk...">
+            <button onclick="searchProduct()">Cari</button>
+        </div>
+        <nav class="navigasi">
+            <a href="#home">Home</a>
+            <a href="#about">About</a>
+            <a href="#kontak">Kontak</a>
+            <a href="#bantuan">Bantuan</a>
+        </nav>
+    </header>
+    
+    <main>
+        <section class="banner">
+            <div class="banner-utama">
+                <h2>SELAMAT DATANG DI TOKO ONLINE</h2>
+                <p>JANGAN LUPA MEMILIH APA YANG KAMU SUKAI</p>
+            </div>
+            <div class="banner-samping">
+                <h3>Promo Spesial</h3>
+                <p>Diskon hingga 100%</p>
+                <img src="shope,100.jfif" alt="Diskon 100%">
+            </div>
+        </section>
+        
+        <section class="kategori-ikon">
+            <div class="kategori-item">
+                <img src="SHOPE LOKAL.png" alt="Pilih Lokal">
+                <p><a href="https://shopee.co.id/m/shopee-pilih-lokal">Pilih Lokal</a></p>
+            </div>
+            <div class="kategori-item">
+                <img src="SHOPE MALL.jfif" alt="Mall">
+                <p><a href="https://shopee.co.id/mall">Mall</a></p>
+            </div>
+            <div class="kategori-item">
+                <img src="ICON PULSA.jfif" alt="Pulsa & Tagihan">
+                <p><a href="https://shopee.co.id/produk-digital/lainnya">Pulsa & Tagihan</a></p>
+            </div>
+            <!-- Tambahkan item kategori lainnya di sini -->
+        </section>
+
+        <section class="hasil-pencarian" id="searchResults">
+            <!-- Hasil pencarian akan ditampilkan di sini -->
+        </section>
+    </main>
+
+    <div class="keranjang" id="keranjang">
+        <h3>Keranjang Belanja</h3>
+        <ul id="keranjangList"></ul>
+    </div>
+    <script>
+        const products = [
+            { name: 'Baju Wanita', link: '#', image: 'shopping 6.webp' },
+            { name: 'Celana Pria', link: '#', image: 'shopping (1)2.webp' },
+            { name: 'Pulsa', link: 'https://shopee.co.id/produk-digital/lainnya', image: 'ICON PULSA.jfif' },
+            // Tambahkan produk lainnya di sini
+        ];
+
+        const keranjang = [];
+
+        function searchProduct() {
+            const input = document.getElementById('searchInput').value.toLowerCase();
+            const resultsContainer = document.getElementById('searchResults');
+            resultsContainer.innerHTML = '';
+
+            const filteredProducts = products.filter(product => product.name.toLowerCase().includes(input));
+
+            if (filteredProducts.length > 0) {
+                filteredProducts.forEach(product => {
+                    const productElement = document.createElement('div');
+                    productElement.classList.add('kategori-item');
+                    productElement.innerHTML = `
+                        <img src="${product.image}" alt="${product.name}">
+                        <p><a href="${product.link}">${product.name}</a></p>
+                        <button onclick="beliProduk('${product.name}', '${product.link}', '${product.image}')">Beli</button>
+                        <button onclick="tambahKeKeranjang('${product.name}', '${product.link}', '${product.image}')">Masukkan ke Keranjang</button>
+                    `;
+                    resultsContainer.appendChild(productElement);
+                });
+            } else {
+                resultsContainer.innerHTML = '<p>Produk tidak ditemukan.</p>';
+            }
+        }
+
+        function beliProduk(name, link, image) {
+            alert(`Anda membeli produk: ${name}`);
+            // Di sini tambahkan logika untuk melakukan pembelian
+        }
+
+        function tambahKeKeranjang(name, link, image) {
+            keranjang.push({ name, link, image });
+            updateKeranjang();
+        }
+
+        function updateKeranjang() {
+            const keranjangList = document.getElementById('keranjangList');
+            keranjangList.innerHTML = '';
+
+            keranjang.forEach(item => {
+                const listItem = document.createElement('li');
+                listItem.innerHTML = `
+                    <img src="${item.image}" alt="${item.name}" style="width: 50px; height: auto;">
+                    <a href="${item.link}">${item.name}</a>
+                `;
+                keranjangList.appendChild(listItem);
+            });
+        }
+
+        document.querySelectorAll('.navigasi a').forEach(function(link) {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                alert('Anda mengklik menu ' + this.textContent);
+            });
+        });
+    </script>
+</body>
+</html>
